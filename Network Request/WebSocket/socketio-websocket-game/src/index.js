@@ -9,15 +9,16 @@ const PORT = process.env.PORT || 3000;
 /* MIDDLEWARE ADD PUBLIC FOLDER */
 app.use(express.static("public"));
  
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
-});
+const users = {};
 
 io.on('connection', (socket) => {
   console.log('a user connected');
-  socket.on('ping', () => {
-    console.log("we get a ping message");
-    socket.emit("pong","hello world")
+
+  socket.on('join', (username) => {
+   users[socket.id] = {
+    username,
+   };
+   console.log(users);
   })
 });
 

@@ -9,19 +9,24 @@
 </head>
 
 <body>
-
-  Hello World
-
-  <button id="ping">ping</button>
+  <div id="login-controls">
+    <label for="username">Username</label>
+    <input id="username">
+    <button id="connect">Connect</button>
+  </div>
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io();
 
+    const loginControls = document.getElementById("login-controls")
+    const connectButton = document.getElementById("connect")
+    const username = document.getElementById("username");
 
-    const pingButton = document.getElementById("ping")
-    pingButton.addEventListener("click", () => {
-      socket.emit("ping");
+    connectButton.addEventListener("click", () => {
+      if (!username.value) return;
+      socket.emit("join", username.value);
+      loginControls.style.display = "none";
     })
 
     socket.on('pong', (message) => {
