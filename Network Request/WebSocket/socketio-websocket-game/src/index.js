@@ -15,6 +15,10 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('a user connected');
+  socket.on('ping', () => {
+    console.log("we get a ping message");
+    socket.emit("pong","hello world")
+  })
 });
 
 server.listen(PORT, () => {
