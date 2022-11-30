@@ -11,6 +11,10 @@
     #hangman {
       display: none;
     }
+
+    body {
+      text-align: center;
+    }
   </style>
 
 </head>
@@ -25,6 +29,10 @@
 
   <div id="hangman">
     <h1>HANGMAN</h1>
+    <p>["javascript", "python", "go", "ruby", "rust"]</p>
+    <p>
+      only one letter input
+    </p>
     <form id="guess-controls">
       <label for="letter">Letter</label>
       <input id="letter">
@@ -66,8 +74,13 @@
     })
 
     socket.on("guessedWord", (guessedWord) => {
-      guessedWordDisplay.innerText = guessedWord
-    })
+      guessedWordDisplay.innerText =
+        guessedWord
+          .split("")
+          .map((char, i) => `${char} `)
+          .join("");
+    });
+
   </script>
 </body>
 

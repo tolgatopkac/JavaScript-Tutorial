@@ -24,7 +24,7 @@ let wordToGuess;
 let guessedWord;
 
 const setNextWord = (word) => {
-  const word = wordsToGuess[parseInt(Math.random() * wordsToGuess.length)];
+  word = wordsToGuess[parseInt(Math.random() * wordsToGuess.length)];
   wordToGuess = word;
   guessedWord = word.split("").fill("_");
 };
