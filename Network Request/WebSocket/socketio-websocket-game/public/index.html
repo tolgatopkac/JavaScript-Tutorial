@@ -6,31 +6,67 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+
+  <style>
+    #hangman {
+      display: none;
+    }
+  </style>
+
 </head>
 
 <body>
-  <div id="login-controls">
+  <form id="login-controls">
+    <h1>LOGIN</h1>
     <label for="username">Username</label>
     <input id="username">
     <button id="connect">Connect</button>
+  </form>
+
+  <div id="hangman">
+    <h1>HANGMAN</h1>
+    <form id="guess-controls">
+      <label for="letter">Letter</label>
+      <input id="letter">
+      <button id="guess">guess</button>
+      <span id="guessed-word"></span>
+    </form>
   </div>
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io();
 
-    const loginControls = document.getElementById("login-controls")
+    const loginForm = document.getElementById("login-controls")
+    const hangman = document.getElementById("hangman")
     const connectButton = document.getElementById("connect")
-    const username = document.getElementById("username");
+    const usernameInput = document.getElementById("username");
+    const letterInput = document.getElementById("letter");
+    const guessForm = document.getElementById("guess-controls")
+    const guessedWordDisplay = document.getElementById("guessed-word")
 
-    connectButton.addEventListener("click", () => {
-      if (!username.value) return;
-      socket.emit("join", username.value);
-      loginControls.style.display = "none";
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!usernameInput.value) return;
+      socket.emit("join", usernameInput.value);
+      loginForm.style.display = "none";
+      hangman.style.display = "block";
+    })
+
+
+    guessForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!letterInput.value || letterInput.value.length !== 1) return;
+      socket.emit("guess", letterInput.value);
+      letterInput.value = ""
     })
 
     socket.on('pong', (message) => {
       console.log(message)
+    })
+
+    socket.on("guessedWord", (guessedWord) => {
+      guessedWordDisplay.innerText = guessedWord
     })
   </script>
 </body>
