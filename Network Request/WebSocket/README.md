@@ -124,7 +124,7 @@ The method for that is
  - ` reason ` is a string describes the reason of closing ( optional )
 
 Then the other party in the `close` event handler gets the code and the reason
-![enter image description here](https://i.ibb.co/4Y3xMyc/carbon-7.png)
+![enter image description here](https://i.ibb.co/3yKfkMT/8.png)
 
 Most common code values: 
 
@@ -135,7 +135,7 @@ Most common code values:
  - `1011` -- unexpected error on server,
 
 
-![enter image description here](https://i.ibb.co/jHQGK5Q/carbon-8.png)
+![enter image description here](https://i.ibb.co/M7c6HY6/te.png)
 
 # Connection state
 To get connection state, additionally there's `socket.readyState`property with values :
